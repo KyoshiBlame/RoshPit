@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package match.v1;
+
+option go_package = "github.com/KyoshiBlame/RoshPit/proto/match/v1";
+
+service LiveScoreService {
+  rpc StartMatch(StartMatchRequest) returns (StartMatchResponse);
+  rpc StopMatch(StopMatchRequest) returns (StopMatchResponse);
+}
+
+message StartMatchRequest {
+  string match_id = 1;
+  string team_a_id = 2;
+  string team_b_id = 3;
+}
+
+message StartMatchResponse {
+  bool success = 1;
+}
+
+message StopMatchRequest {
+  string match_id = 1;
+}
+
+message StopMatchResponse {
+  bool success = 1;
+}

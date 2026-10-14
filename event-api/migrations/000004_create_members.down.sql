@@ -1,0 +1,1 @@
+DROP TABLE events.team_members;
