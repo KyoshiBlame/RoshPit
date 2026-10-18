@@ -41,7 +41,7 @@ func NewPool(
 	}
 
 	return &Pool{
-		Pool: pool,
-		opTimeout: config.Timeout
+		Pool:      pool,
+		opTimeout: config.Timeout,
 	}, nil
 }

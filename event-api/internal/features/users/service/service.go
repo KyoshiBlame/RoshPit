@@ -19,14 +19,23 @@ func NewUsersService(
 }
 
 type UsersRepository interface {
-	GetUser(
+	GetUserByID(
+		ctx context.Context,
+		id int,
+	) (domain.PublicUserProfile, error)
+
+	GetMe(
+		ctx context.Context,
+		id int,
+	)
+
+	PatchMe(
 		ctx context.Context,
 		id int,
 	) (domain.User, error)
 
-	PatchUser(
+	DeleteMe(
 		ctx context.Context,
 		id int,
-		patchUser domain.PatchUser,
-	) (domain.User, error)
+	) error
 }
