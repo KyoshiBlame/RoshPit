@@ -1,2 +1,1 @@
-DROP TABLE events.users;
-DROP SCHEMA events;
+DROP SCHEMA IF EXISTS events CASCADE;

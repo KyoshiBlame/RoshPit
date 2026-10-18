@@ -84,3 +84,7 @@ func (s *HTTPServer) Start(
 
 	return nil
 }
+
+func (s *HTTPServer) Router() *gin.Engine {
+	return s.router
+}

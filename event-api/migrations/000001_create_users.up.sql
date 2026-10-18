@@ -15,3 +15,12 @@ CREATE TABLE IF NOT EXISTS events.users (
     created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at    TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+CREATE TABLE IF NOT EXISTS events.refresh_tokens (
+    token_hash VARCHAR(64) PRIMARY KEY,
+    user_id    UUID NOT NULL REFERENCES events.users(id) ON DELETE CASCADE,
+    expires_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_refresh_tokens_user_id ON events.refresh_tokens(user_id);

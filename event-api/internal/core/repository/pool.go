@@ -45,3 +45,7 @@ func NewPool(
 		opTimeout: config.Timeout,
 	}, nil
 }
+
+func (p *Pool) OpTimeout() time.Duration {
+	return p.opTimeout
+}
