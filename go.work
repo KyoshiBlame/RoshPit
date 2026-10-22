@@ -1,8 +1,8 @@
-go 1.25.11
+go 1.26.2
 
 use (
 	./event-api
 	./live-score-engine
-	./rating-worker
 	./proto
+	./rating-worker
 )

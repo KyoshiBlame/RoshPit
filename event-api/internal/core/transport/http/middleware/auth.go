@@ -23,6 +23,7 @@ func Auth(parser TokenParser) gin.HandlerFunc {
 		header := c.GetHeader("Authorization")
 		if header == "" || !strings.HasPrefix(header, "Bearer ") {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "missing or invalid authorization header"})
+			return
 		}
 
 		tokenStr := strings.TrimPrefix(header, "Bearer ")
@@ -40,9 +41,10 @@ func Auth(parser TokenParser) gin.HandlerFunc {
 
 func RequireRoles(allowedRoles ...domain.UserRole) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		val, exists := c.Get(ctxUserIDKey)
+		val, exists := c.Get(ctxUserRoleKey)
 		if !exists {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+			return
 		}
 
 		userRole, ok := val.(domain.UserRole)
@@ -59,6 +61,7 @@ func RequireRoles(allowedRoles ...domain.UserRole) gin.HandlerFunc {
 		}
 
 		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"error": "insufficient permissions"})
+		return
 	}
 }
 
@@ -66,7 +69,7 @@ func GetUserID(c *gin.Context) string {
 	return c.GetString(ctxUserIDKey)
 }
 
-func GetUSerRoke(c *gin.Context) domain.UserRole {
+func GetUSerRole(c *gin.Context) domain.UserRole {
 	val, exists := c.Get(ctxUserRoleKey)
 	if !exists {
 		return ""
